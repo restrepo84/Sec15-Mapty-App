@@ -20,6 +20,19 @@ if (navigator.geolocation)
       console.log(
         `https://www.google.com/maps/place/41%C2%B045'30.4%22N+111%C2%B051'25.4%22W/@${latitude},${longitude}`
       );
+
+      const coords = [latitude, longitude];
+      const map = L.map("map").setView(coords, 13);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      L.marker(coords)
+        .addTo(map)
+        .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
+        .openPopup();
     },
     function () {
       alert("Could not get your position");
